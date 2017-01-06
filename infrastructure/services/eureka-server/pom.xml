@@ -9,7 +9,7 @@
 	<packaging>jar</packaging>
 
 	<name>eureka-server</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Eureka Server</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
