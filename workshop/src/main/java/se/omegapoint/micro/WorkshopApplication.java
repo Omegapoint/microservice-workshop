@@ -2,12 +2,11 @@ package se.omegapoint.micro;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 @SpringBootApplication
-public class ClientApplication {
+public class WorkshopApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ClientApplication.class, args);
+		SpringApplication.run(WorkshopApplication.class, args);
 	}
 }

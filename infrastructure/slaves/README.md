@@ -1,0 +1,1 @@
+This describes how to setup a generic slave.
