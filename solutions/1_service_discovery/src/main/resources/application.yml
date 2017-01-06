@@ -1,3 +1,7 @@
+spring:
+  application:
+    name: "Das Client"
+
 server:
   port: 8080
   application:
@@ -7,4 +11,10 @@ eureka:
   client:
     enabled: true
     serviceUrl:
-      defaultZone: http://127.0.0.1:8761/eureka/
+      defaultZone: http://54.194.242.215:8761/eureka/
+  instance:
+    preferIpAddress: true
+
+logging:
+  level:
+    se.omegapoint: DEBUG
