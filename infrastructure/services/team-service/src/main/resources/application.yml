@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: "Team Service"
+
+server:
+  port: 8080
+  application:
+    name: team-service
+
+eureka:
+  client:
+    enabled: true
+    serviceUrl:
+      defaultZone: http://54.194.242.215:8761/eureka/
+  instance:
+    preferIpAddress: true
+
+logging:
+  level:
+    se.omegapoint: DEBUG
