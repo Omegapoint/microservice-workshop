@@ -1,6 +1,7 @@
 package se.omegapoint.micro;
 
 import com.netflix.appinfo.AmazonInfo;
+import org.slf4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
@@ -44,14 +45,15 @@ public class EmployeeApplication {
         @Bean
         @Profile("prod")
         public EurekaInstanceConfigBean eurekaInstanceConfig() {
+
             EurekaInstanceConfigBean config = new EurekaInstanceConfigBean(new InetUtils(new InetUtilsProperties()));
             AmazonInfo info = AmazonInfo.Builder.newBuilder().autoBuild("eureka");
             config.setDataCenterInfo(info);
             info.getMetadata().put(AmazonInfo.MetaDataKey.publicHostname.getName(),
-                    info.get(AmazonInfo.MetaDataKey.publicIpv4));
+                    info.get(AmazonInfo.MetaDataKey.publicHostname));
             config.setHostname(info.get(AmazonInfo.MetaDataKey.publicHostname));
-            config.setIpAddress(info.get(AmazonInfo.MetaDataKey.publicIpv4));
-            config.setNonSecurePort(8080);
+            config.setIpAddress(info.get(AmazonInfo.MetaDataKey.publicHostname));
+            config.setNonSecurePort(24701);
             return config;
         }
 

@@ -44,14 +44,15 @@ public class CompetenceDayApplication {
         @Bean
         @Profile("prod")
         public EurekaInstanceConfigBean eurekaInstanceConfig() {
+
             EurekaInstanceConfigBean config = new EurekaInstanceConfigBean(new InetUtils(new InetUtilsProperties()));
             AmazonInfo info = AmazonInfo.Builder.newBuilder().autoBuild("eureka");
             config.setDataCenterInfo(info);
             info.getMetadata().put(AmazonInfo.MetaDataKey.publicHostname.getName(),
-                    info.get(AmazonInfo.MetaDataKey.publicIpv4));
+                    info.get(AmazonInfo.MetaDataKey.publicHostname));
             config.setHostname(info.get(AmazonInfo.MetaDataKey.publicHostname));
-            config.setIpAddress(info.get(AmazonInfo.MetaDataKey.publicIpv4));
-            config.setNonSecurePort(8080);
+            config.setIpAddress(info.get(AmazonInfo.MetaDataKey.publicHostname));
+            config.setNonSecurePort(24703);
             return config;
         }
 
