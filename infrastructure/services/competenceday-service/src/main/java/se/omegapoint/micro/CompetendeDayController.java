@@ -4,10 +4,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class HelloWorldController {
+public class CompetendeDayController {
 
-    @RequestMapping("/hello")
-    public String helloWorld() {
-        return "Hello Omegapoint!";
+    public CompetendeDayController() {
+    }
+
+    @RequestMapping("/competencedays")
+    public String teams() {
+        return "Pong";
     }
 }

@@ -19,7 +19,7 @@ import java.util.List;
 
 @SpringBootApplication
 @EnableEurekaClient
-public class TeamApplication {
+public class CompetenceDayApplication {
 
     @Configuration
     public static class Conf {
@@ -57,7 +57,7 @@ public class TeamApplication {
 
     }
     public static void main(String[] args) {
-        SpringApplication.run(TeamApplication.class, args);
+        SpringApplication.run(CompetenceDayApplication.class, args);
     }
 
 }
