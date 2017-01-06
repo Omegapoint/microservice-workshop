@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>se.omegapoint.micro</groupId>
-    <artifactId>workshop</artifactId>
+    <artifactId>workshop-parent</artifactId>
     <packaging>pom</packaging>
     <version>1.0</version>
     <name>Entire workshop project</name>
