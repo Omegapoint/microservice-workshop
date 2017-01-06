@@ -82,7 +82,7 @@
 				<configuration>
 					<imageName>54.194.242.215:5000/employee-service</imageName>
 					<baseImage>java</baseImage>
-					<entryPoint>["java", "-jar", "/${project.build.finalName}.jar, "-Dspring.profiles.active=prod"]</entryPoint>
+					<entryPoint>["java", "-jar", "/${project.build.finalName}.jar", "-Dspring.profiles.active=prod"]</entryPoint>
 					<!-- copy the service's jar file from target into the root directory of the image -->
 					<resources>
 						<resource>
