@@ -90,4 +90,57 @@ public class WorkshopApplication {
 6. Restart the application. You should now find it on the Eureka server. Open a browser and visit `http://<EUREKA_SERVER_IP>:8761`. 
 It might take a while for the service (up to ~30s given no exception in console out), once you have seen it pop up, continue.
 
-##
+## Talk to other service
+We will now talk to other services with only knowing the service name.
+
+1. Add a dependency to Ribbon. Ribbon handles automatic name lookup in Eureka when performing requests.
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-ribbon</artifactId>
+</dependency>
+```
+
+2. Add an interceptor to RestTemplate, telling it to do name lookups with Ribbon. In WorkshopApplication, add inside the `ClientApplication` class
+```java
+@Configuration
+public static class ApplicationConfig {
+    @Bean
+    public RestTemplate restTemplate(final LoadBalancerClient loadBalancerClient) {
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.getInterceptors().add(new LoadBalancerInterceptor(loadBalancerClient));
+        return restTemplate;
+    }
+}
+```
+
+3. Make a call to a known service. Running services can be found in Eureka. There should be a PingService which has the `GET` endpoint `/ping`
+Either create a new HTTP endpoint or use the existing helloWorld#HelloWorldController method.
+```java
+@Autowired
+RestTemplate restTemplate;
+
+@RequestMapping("pingpong")
+public String pingPong() {
+    ResponseEntity<String> result = restTemplate.getForEntity("http://pingService/ping", String.class);
+
+    return "Received from service: " + result.getBody();
+}
+```
+
+4. Restart the application. Open a browser and visit your endpoint (e.g. `http://localhost:###/pingpong` according to above).
+You should receive a proper response from the other service. If nothing is returned, check your console if any errors has occurred.
+
+## Extra
+
+### Receiving complex models
+It is ofcourse possible to receive other data than a String when talking to other services. Spring `RestTemplate` uses Jackson in the background,
+so you can map the response to a Java bean that corresponds to the response structure. Use Jackson annotations `@JsonProperty` if needed. Example
+```java
+ResponseEntity<String> result = restTemplate.getForEntity("http://pingService/ping", String.class);
+```
+
+### Retrieving all available services.
+Ribbon does some magic in the background when replacing a service name to an IP using Eureka. Ribbon does not performa lookup on each call, that would be too expensive.
+Instead, it stores a local cache of all available services. You can manually get all available services and inspect them yourself. Autowire in the `DiscoveryClient` and
+call `getApplication()`
