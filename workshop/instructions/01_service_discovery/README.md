@@ -24,7 +24,7 @@ This can be solved better using infrastructure stacks, but we will keep it simpl
 server:
   port: ###
 ```
-where ### is a unique port value, pick something between 10000 - 60000.
+where ### is a unique port power, pick something between 10000 - 60000.
 
 2. Rerun main#WorkshopApplication, close the previous running instance. IntelliJ tip: You can set the Run Configuration to `Single instance only`
 which will automatically kill previous instance and create a new one.

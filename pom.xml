@@ -11,9 +11,8 @@
 
     <modules>
         <module>infrastructure/services/eureka-server</module>
-        <module>infrastructure/services/competenceday-service</module>
-        <module>infrastructure/services/team-service</module>
-        <module>infrastructure/services/employee-service</module>
+        <module>infrastructure/services/superpower-service</module>
+        <module>infrastructure/services/superhero-service</module>
         <module>workshop</module>
     </modules>
 
