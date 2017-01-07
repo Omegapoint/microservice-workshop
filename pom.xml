@@ -13,6 +13,7 @@
         <module>infrastructure/services/eureka-server</module>
         <module>infrastructure/services/superpower-service</module>
         <module>infrastructure/services/superhero-service</module>
+        <module>infrastructure/services/galaxy-service</module>
         <module>workshop</module>
     </modules>
 
