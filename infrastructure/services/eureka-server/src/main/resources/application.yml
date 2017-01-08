@@ -4,11 +4,12 @@ server:
 eureka:
   server:
     enable-self-preservation: false
+    waitTimeInMsWhenSyncEmpty: 0
+    registrySyncRetries: 0
+
   client:
     registerWithEureka: false
     fetchRegistry: false
-    server:
-      waitTimeInMsWhenSyncEmpty: 0
-  numberRegistrySyncRetries: 0
+
   instance:
     leaseRenewalIntervalInSeconds: 2
