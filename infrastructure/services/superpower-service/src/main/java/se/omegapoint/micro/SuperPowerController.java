@@ -28,7 +28,11 @@ public class SuperPowerController {
                 .collect(toList());
 
         return new SuperPowersDTO(randomPowers);
+    }
 
+    @RequestMapping("/ping")
+    public String ping() {
+        return "Pong! SuperPower Service Ready!";
     }
 
     private class SuperPowersDTO {

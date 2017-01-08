@@ -23,5 +23,8 @@ public class SuperHeroController {
         return superHeroFactory.randomSuperHero();
     }
 
-
+    @RequestMapping("/ping")
+    public String ping() {
+        return "Pong! SuperHero Service Ready!";
+    }
 }

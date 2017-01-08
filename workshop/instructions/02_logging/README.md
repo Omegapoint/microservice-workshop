@@ -48,7 +48,7 @@ In our use case, it is much simplier though. We will add an appender that will a
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <appender name="stash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-        <destination>@master.ip@:5044</destination>
+        <destination>@master.dns@:5044</destination>
         <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
     </appender>
 

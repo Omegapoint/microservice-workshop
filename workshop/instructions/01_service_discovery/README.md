@@ -69,7 +69,7 @@ eureka:
   client:
     enabled: true
     serviceUrl:
-      defaultZone: @master.dns@/eureka
+      defaultZone: http://@master.dns@:8761/eureka
 ```
 
 4. Still in `application.yml`, specify the application name. 
