@@ -1,9 +1,8 @@
 Setup
 -----
 
-* Change IP for docker plugin in pom.xml for all services
-
-* Run mvn clean package docker:build -DpushImage
+Run this command for all services:
+    mvn clean package docker:build -DpushImage
 
 Employee service
 -----
