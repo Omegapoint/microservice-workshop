@@ -1,6 +1,15 @@
 package se.omegapoint.micro;
 
+import ch.qos.logback.classic.helpers.MDCInsertingServletFilter;
 import com.netflix.appinfo.AmazonInfo;
+import java.io.IOException;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -60,7 +69,34 @@ public class SuperPowerApplication {
             return config;
         }
 
+        @Value("${spring.application.name}")
+        public String applicationName;
+
+        @Bean
+        public Filter requestLoggingFilter() {
+            return new MDCInsertingServletFilter();
+        }
+
+        @Bean
+        public Filter customLoggingFilter() {
+            return new Filter() {
+                @Override
+                public void init(FilterConfig filterConfig) throws
+                                                            ServletException {}
+
+                @Override
+                public void destroy() {}
+
+                @Override
+                public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws
+                                                                                                                              IOException, ServletException {
+                    MDC.put("application", applicationName);
+                    filterChain.doFilter(servletRequest, servletResponse);
+                }
+            };
+        }
     }
+
     public static void main(String[] args) {
         SpringApplication.run(SuperPowerApplication.class, args);
     }
