@@ -16,7 +16,6 @@
 		<version>1.0</version>
 	</parent>
 
-
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -46,6 +45,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
 
 </project>
