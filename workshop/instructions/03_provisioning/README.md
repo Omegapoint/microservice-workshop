@@ -127,7 +127,7 @@ Now let's add your service to the stack. Fill in the following:
      
 Click Create.
 
-Your application is now starting. Click on the application name to get more information. Have a look around. Try to find the logs of your java application from here.
+Your application is now being deployed to the cluster. Click on the application name to get more information. Have a look around. Try to find the logs of your java application from here.
 
 You can also find the public ip of any of the machines running your application to access it. Ask the teacher if you need support. 
 
