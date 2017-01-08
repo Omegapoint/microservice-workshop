@@ -47,6 +47,9 @@ other can request for our service.
 ```xml
 <dependencyManagement>
     <dependencies>
+    
+        ....
+    
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-dependencies</artifactId>
@@ -54,6 +57,7 @@ other can request for our service.
             <type>pom</type>
             <scope>import</scope>
         </dependency>
+        
     </dependencies>
 </dependencyManagement>
 ```
@@ -69,7 +73,7 @@ eureka:
 ```
 
 4. Still in `application.yml`, specify the application name. 
-The artifact id from the pom.xml will be used as application name when registering the application in eureka.
+The artifactId from the pom.xml will be used as application name when registering in eureka.
 ```yaml
 spring:
   application:
@@ -121,7 +125,7 @@ RestTemplate restTemplate;
 
 @RequestMapping("pingpong")
 public String pingPong() {
-    ResponseEntity<String> result = restTemplate.getForEntity("http://pingService/ping", String.class);
+    ResponseEntity<String> result = restTemplate.getForEntity("http://ping-service/ping", String.class);
 
     return "Received from service: " + result.getBody();
 }
@@ -136,7 +140,7 @@ You should receive a proper response from the other service. If nothing is retur
 It is ofcourse possible to receive other data than a String when talking to other services. Spring `RestTemplate` uses Jackson in the background,
 so you can map the response to a Java bean that corresponds to the response structure. Use Jackson annotations `@JsonProperty` if needed. Example
 ```java
-ResponseEntity<String> result = restTemplate.getForEntity("http://pingService/ping", String.class);
+ResponseEntity<String> result = restTemplate.getForEntity("http://ping-service/ping", String.class);
 ```
 
 ### Retrieving all available services.
