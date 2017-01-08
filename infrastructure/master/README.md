@@ -69,5 +69,5 @@ docker stop $(docker ps -a -q  --filter ancestor=localhost:5000/eureka-server)
 
 Start with
 ```sh
-docker run -p 8761:8761 localhost:5000/eureka-server
+docker run -p 8761:8761 -d localhost:5000/eureka-server
 ```
