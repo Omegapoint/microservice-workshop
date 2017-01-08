@@ -6,7 +6,7 @@ This part will show how to enable service discovery in your system. The goal of 
 3. Communicate with a service without knowing the address to it.
 
 # Setup
-Boilerplate code can be found in the root folder "workshop". 
+Boilerplate code can be found under src in the root folder "workshop". 
 The code consists of a clean Spring Boot application.
 
 # Steps
