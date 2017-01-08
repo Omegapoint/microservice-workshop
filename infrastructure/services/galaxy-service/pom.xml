@@ -11,9 +11,9 @@
 
     <parent>
         <groupId>se.omegapoint.micro</groupId>
-        <artifactId>workshop-parent</artifactId>
+        <artifactId>infrastructure-parent</artifactId>
         <version>1.0</version>
-        <relativePath>../../../pom.xml</relativePath>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
 
 </project>
