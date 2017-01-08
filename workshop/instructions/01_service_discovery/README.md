@@ -58,25 +58,24 @@ other can request for our service.
 </dependencyManagement>
 ```
 
-3. In `application.yml`, add configuration for Eureka server endpoint
+3. In `application.yml`, add configuration for Eureka server endpoint. 
+@master.dns@ will be replaced with the url to the master server running eureka when the project is built using a maven plugin called maven-resources-plugin.    
 ```yaml
 eureka:
-  instance:
-    preferIpAddress: true
   client:
     enabled: true
     serviceUrl:
-      defaultZone: http://###:8761/eureka/
+      defaultZone: @master.dns@/eureka
 ```
-where ### is the ip to the Eureka server. Currently, the IP is `54.194.242.215`.
 
-4. Still in `application.yml`, specify the application name
+4. Still in `application.yml`, specify the application name. 
+The artifact id from the pom.xml will be used as application name when registering the application in eureka.
 ```yaml
 spring:
   application:
-    name: "My Client Name"
+    name: @artifactId@
 ```
-Change `My Client Name` to something appropriate.
+Change <artifactId>workshop-service</artifactId> to something appropriate.
 
 5. Lastly, we need to enable the Eureka client in our Java code. Open `WorkshopApplication` and annotate the class with `@EnableEurekaClient`, i.e.
 ```java
@@ -87,7 +86,7 @@ public class WorkshopApplication {
 }
 ```
 
-6. Restart the application. You should now find it on the Eureka server. Open a browser and visit `http://<EUREKA_SERVER_IP>:8761`. 
+6. Restart the application. You should now find it on the Eureka server. Open a browser and visit `http://<EUREKA_SERVER_IP>:8761`. Ask for the IP if you don't know it. 
 It might take a while for the service (up to ~30s given no exception in console out), once you have seen it pop up, continue.
 
 ## Talk to other service
