@@ -79,9 +79,13 @@ spring:
   application:
     name: @artifactId@
 ```
-Change <artifactId>workshop-service</artifactId> to something appropriate.
 
-5. Lastly, we need to enable the Eureka client in our Java code. Open `WorkshopApplication` and annotate the class with `@EnableEurekaClient`, i.e.
+5. Update your pom.xml to have an unique artifactId as this will be used to identify your service. Change 
+```xml
+<artifactId>my-cool-service-name</artifactId>
+```
+
+6. Lastly, we need to enable the Eureka client in our Java code. Open `WorkshopApplication` and annotate the class with `@EnableEurekaClient`, i.e.
 ```java
 @EnableEurekaClient
 @SpringBootApplication
@@ -90,12 +94,13 @@ public class WorkshopApplication {
 }
 ```
 
-6. Restart the application. You should now find it on the Eureka server. Open a browser and visit `http://<EUREKA_SERVER_IP>:8761`. Ask for the IP if you don't know it. 
+7. Restart the application. You should now find it on the Eureka server. Open a browser and visit `http://<EUREKA_SERVER_IP>:8761`. Ask for the IP if you don't know it. 
 It might take a while for the service (up to ~30s given no exception in console out), once you have seen it pop up, continue.
 
 ## Talk to other service
 We will now talk to other services with only knowing the service name.
 
+### Ping!
 1. Add a dependency to Ribbon. Ribbon handles automatic name lookup in Eureka when performing requests.
 ```xml
 <dependency>
@@ -117,7 +122,7 @@ public static class ApplicationConfig {
 }
 ```
 
-3. Make a call to a known service. Running services can be found in Eureka. There should be a PingService which has the `GET` endpoint `/ping`
+3. Make a call to a known service. Running services can be found in Eureka. There should be a SuperHeroService which has the `GET` endpoint `/ping`
 Either create a new HTTP endpoint or use the existing helloWorld#HelloWorldController method.
 ```java
 @Autowired
@@ -134,14 +139,62 @@ public String pingPong() {
 4. Restart the application. Open a browser and visit your endpoint (e.g. `http://localhost:###/pingpong` according to above).
 You should receive a proper response from the other service. If nothing is returned, check your console if any errors has occurred.
 
-## Extra
+### Proper messages
+While ping pong is great, lets retrieve a proper message. RestTemplate is built in Jackson mapping, so we will receive an JSON response and map it into a bean. 
+The SuperHeroService also has an `GET` endpoint `/superhero`. Let´s call it and map it to a response model.
 
-### Receiving complex models
-It is ofcourse possible to receive other data than a String when talking to other services. Spring `RestTemplate` uses Jackson in the background,
-so you can map the response to a Java bean that corresponds to the response structure. Use Jackson annotations `@JsonProperty` if needed. Example
+1. Create an response model, `SuperHeroResponse`
 ```java
-ResponseEntity<String> result = restTemplate.getForEntity("http://ping-service/ping", String.class);
+public class SuperHeroResponse {
+  public final String name;
+  public final Galaxy galaxy;
+  public final List<Power> powers;
+
+  @JsonCreator
+  public SuperHeroResponse(@JsonProperty("name") final String name,
+                           @JsonProperty("galaxy") final Galaxy galaxy,
+                           @JsonProperty("powers") final List<Power> powers) {
+    this.name = name;
+    this.galaxy = galaxy;
+    this.powers = powers;
+  }
+
+  public static class Galaxy {
+    public final String name;
+
+    @JsonCreator
+    public Galaxy(@JsonProperty("name") final String name) {
+      this.name = name;
+    }
+  }
+
+  public static class Power {
+    public final String name;
+
+    @JsonCreator
+    public Power(@JsonProperty("power") final String name) {
+      this.name = name;
+    }
+  }
+}
 ```
+
+2. Make a call to the super hero service. 
+```java
+@RequestMapping("hero")
+public String myHero() {
+    ResponseEntity<SuperHeroResponse> result = restTemplate.getForEntity("http://superhero-service/superhero", SuperHeroResponse.class);
+    final SuperHeroResponse response = result.getBody();
+
+    return String.format("Received hero %s with %d powers", response.name, response.powers.size());
+}
+```
+
+3. Restart the application. Open a browser and visit your endpoint (e.g. `http://localhost:###/hero` according to above).
+You should receive a randomly generated hero!
+
+# Extra
+Only these tasks if you are ahead and are only waiting for the next step.
 
 ### Retrieving all available services.
 Ribbon does some magic in the background when replacing a service name to an IP using Eureka. Ribbon does not performa lookup on each call, that would be too expensive.
