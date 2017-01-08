@@ -1,6 +1,7 @@
 package se.omegapoint.micro;
 
 import com.netflix.appinfo.AmazonInfo;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
@@ -23,6 +24,9 @@ public class SuperHeroApplication {
 
     @Configuration
     public static class Conf {
+
+        @Value("${server.port}")
+        public int serverPort;
 
         @Bean
         public RestTemplate restTemplate(LoadBalancerClient loadBalancerClient) {
@@ -52,7 +56,7 @@ public class SuperHeroApplication {
                     info.get(AmazonInfo.MetaDataKey.publicHostname));
             config.setHostname(info.get(AmazonInfo.MetaDataKey.publicHostname));
             config.setIpAddress(info.get(AmazonInfo.MetaDataKey.publicHostname));
-            config.setNonSecurePort(24701);
+            config.setNonSecurePort(serverPort);
             return config;
         }
 
