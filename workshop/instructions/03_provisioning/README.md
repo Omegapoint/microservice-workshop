@@ -54,13 +54,13 @@ To build and upload the application, simply find your way to the workshop folder
 mvn clean package docker:build -DpushImage
 ```
 
-The application should now be uploaded to the Docker Registry. To verify, run:
+The application should now be uploaded to the Docker Registry. To verify, run the following command to list all images in the registry:
 
 ```bash
 curl -X GET <REGISTRY_IP>:5000/v2/_catalog
 ```
 
-The ip should be visible in the logs when the image was uploaded to registry, if you cannot find it ask your teacher. 
+The ip to Docker Registry should be visible in the logs when the image was uploaded to registry, if you cannot find it ask your teacher.
 
 Now hold your horses, we will not deploy your application to the cluster just yet. We have some stuff to take care of first. 
 
@@ -87,7 +87,7 @@ public EurekaInstanceConfigBean eurekaInstanceConfig() {
             info.get(AmazonInfo.MetaDataKey.publicHostname));
     config.setHostname(info.get(AmazonInfo.MetaDataKey.publicHostname));
     config.setIpAddress(info.get(AmazonInfo.MetaDataKey.publicHostname));
-    config.setNonSecurePort(24701);
+    config.setNonSecurePort(serverPort);
     return config;
 }
 ```
@@ -103,7 +103,7 @@ mvn clean package docker:build -DpushImage
 ##Provisioning with Rancher
 It's time to ship your application to the cloud. 
 
-Go to the url: http://<RANCHER_IP>:8080 to get to Rancher. Let's have a quick look around.
+Go to the url: http://[RANCHER_IP]:8080 to get to Rancher. Let's have a quick look around.
 
 ###Infrastructure 
 Here you can find all components setting up the infrastructure of the provisioning. Under hosts you will find all the servers available for deployment of applications. 
@@ -123,7 +123,7 @@ Now let's add your service to the stack. Fill in the following:
     * Name: <artifactId> (Replace with the artifactIf used in your pom)
     * Description: Description of your application
     * Select image: 172.31.12.100:5000/<artifactId> (Replace with the artifactIf used in your pom). The ip indicates to rancher where the registry is located. 
-    * Port map: <APPLICATION_PORT> -> <APPLICATION_PORT> (Replace with the port where your application is running)
+    * Port map: [APPLICATION_PORT] -> [APPLICATION_POR]> (Replace with the port where your application is running)
      
 Click Create.
 
