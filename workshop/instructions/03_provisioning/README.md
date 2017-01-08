@@ -44,20 +44,20 @@ Add the plugin to pom.xml
 
 A few things to note about the plugin configurations:
 * We're using java as a base image, which means that java will be installed within our docker image.
-* We're prefixing the image name with '${master.ip}:5000', which is the path to our docker registry server.
+* We're prefixing the image name with `${master.ip}:5000`, which is the path to our docker registry server.
 * The artifactId from pom.xml will be used as the image name. This name will be used later when deploying the application.
 * The entry point of the docker image will start our application with the production profile.
 
 To build and upload the application, simply find your way to the workshop folder in a terminal and run:
 
 ```bash
-mvn clean package docker:build -DpushImage
+./mvnw clean package docker:build -DpushImage
 ```
 
 The application should now be uploaded to the Docker Registry. To verify, run the following command to list all images in the registry:
 
 ```bash
-curl -X GET <REGISTRY_IP>:5000/v2/_catalog
+curl -X GET <MASTER_IP>:5000/v2/_catalog
 ```
 
 The ip to Docker Registry should be visible in the logs when the image was uploaded to registry, if you cannot find it ask your teacher.
@@ -79,7 +79,6 @@ public int serverPort;
 @Bean
 @Profile("prod")
 public EurekaInstanceConfigBean eurekaInstanceConfig() {
-
     EurekaInstanceConfigBean config = new EurekaInstanceConfigBean(new InetUtils(new InetUtilsProperties()));
     AmazonInfo info = AmazonInfo.Builder.newBuilder().autoBuild("eureka");
     config.setDataCenterInfo(info);
@@ -103,41 +102,48 @@ mvn clean package docker:build -DpushImage
 ##Provisioning with Rancher
 It's time to ship your application to the cloud. 
 
-Go to the url: http://[RANCHER_IP]:8080 to get to Rancher. Let's have a quick look around.
+Go to the url: http://[MASTER_IP]:8080 to get to Rancher. Let's have a quick look around.
 
-###Infrastructure 
+####Infrastructure 
 Under the infrastructure tab you will find all components setting up the infrastructure of the provisioning. Under hosts you can see all the servers available for deployment of applications. 
 
-###Stacks
+####Stacks
 Under the stacks tab you will find information about stacks (groups) of applications. For example, under infra-services are all the services running that you previously communicated with in your application.
  
 ###Let's deploy
-Go to `Stacks -> All` and press `Add Stack`. Fill in a proper name and description of your stack. 
-This name should indicate which kind of application you are running. Application with similar purpose should preferably end up in the same stack.
+1. Go to `Stacks -> All` and press `Add Stack`. 
+2. Fill in a proper name and description of your stack. 
+This name should indicate which kind of application you are running. Application with similar purpose should preferably end up in the same stack. Our stack will only contain one application.
+Click `Create`.
 
+3.  Now let's add your service to the stack. Click `Add service`
+Fill in the following:
+* Scale: Choose on how many machines your application should run. Pick one for now.
+* Name: <artifactId> (Replace with the artifactId used in your pom)
+* Description: Description of your application. Can contain whitespace.
+* Select image: 172.31.12.100:5000/<artifactId> (Replace with the artifactId used in your pom). The ip indicates to rancher where the registry is located. 
+* Port map: [APPLICATION_PORT] -> [APPLICATION_PORT]> (Replace with the port where your application is running)
 Click Create.
 
-Now let's add your service to the stack. Fill in the following:
+4. Your application is now being deployed to the cluster. Click on the application name to get more information. 
+Have a look around. Try to find the logs of your java application from here. The service is deployed when the status has changed to `Active`
 
-    * Scale: Choose on how many machines your application should run. Pick a reasonable number. 
-    * Name: <artifactId> (Replace with the artifactId used in your pom)
-    * Description: Description of your application
-    * Select image: 172.31.12.100:5000/<artifactId> (Replace with the artifactId used in your pom). The ip indicates to rancher where the registry is located. 
-    * Port map: [APPLICATION_PORT] -> [APPLICATION_POR]> (Replace with the port where your application is running)
-     
-Click Create.
-
-Your application is now being deployed to the cluster. Click on the application name to get more information. Have a look around. Try to find the logs of your java application from here.
-
-You can also find the public ip of any of the machines running your application to access it. Ask the teacher if you need support. 
+5. You can also find the public ip of any of the machines running your application to access it. It should be listed under `Ports` 
+Ask the teacher if you need support. 
 
 ##Upgrading your application
-Make some changes to your application. Maybe add an endpoint that talks to one of your colleagues applications.
+1. Make some simple changes to your application. Maybe add an endpoint that talks to one of your colleagues applications.
  
-Build and upload a new docker image as done previously.
+2. Build and upload a new docker image as done previously (maven command).
 
-Go back to your stack in Rancher and click the three dots to the far right of your application. Choose upgrade.
+3. Go back to your stack in Rancher.
+ 
+4. Click the three dots to the far right of your service/application. Choose upgrade.
 
-Click Create.
+5. Dont change any values. Click Upgrade.
 
-Your application will now be upgraded with your new docker image. Verify that your changes are working. 
+Your application will now be upgraded with your new docker image. Verify that your changes are working. **Please note** that the upgrade might take some additional time after being
+classified as Upgraded. This is due to the fact that Spring Boot requires some additional time to start.
+
+6. In the Rancher UI, press the dots again. Select `Finish upgrade`
+ 
