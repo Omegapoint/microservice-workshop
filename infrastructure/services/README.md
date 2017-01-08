@@ -4,18 +4,18 @@ Setup
 Run this command for all services:
     mvn clean package docker:build -DpushImage
 
-Employee service
------
+SuperHero service
+-----------------
 Running on port: 24701 
-Endpoint: /employee
+Endpoint: /ping, /superhero
 
 
-Team service
------
+SuperPower service
+------------------
 Running on port: 24702
-Endpoint: /teams
+Endpoint: /ping, /superpowers
 
-CompetenceDay service
------
+Galaxy service
+--------------
 Running on port: 24703
-Endpoints: /competencedays
+Endpoints: /ping, /galaxy

@@ -18,10 +18,13 @@ public class GalaxyController {
     }
 
     @RequestMapping("/galaxy")
-    public Galaxy superHero() {
+    public Galaxy galaxy() {
         logger.info("Initializing galaxy");
         return galaxyFactory.randomGalaxy();
     }
 
-
+    @RequestMapping("/ping")
+    public String ping() {
+        return "Pong! Galaxy Service Ready!";
+    }
 }
