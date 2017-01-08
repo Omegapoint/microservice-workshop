@@ -112,8 +112,8 @@ Under the infrastructure tab you will find all components setting up the infrast
 Under the stacks tab you will find information about stacks (groups) of applications. For example, under infra-services are all the services running that you previously communicated with in your application.
  
 ###Let's deploy
-Go to `Stacks -> All` and press "Add Stack". Fill in a proper name and description of your stack. 
-This name should indicate which kind of application you are running. Application with similar purpose preferably should end up in the same stack.
+Go to `Stacks -> All` and press `Add Stack`. Fill in a proper name and description of your stack. 
+This name should indicate which kind of application you are running. Application with similar purpose should preferably end up in the same stack.
 
 Click Create.
 
