@@ -45,7 +45,7 @@ Add the plugin to pom.xml
 A few things to note about the plugin configurations:
 * We're using java as a base image, which means that java will be installed within our docker image.
 * We're prefixing the image name with '${master.ip}:5000', which is the path to our docker registry server.
-* The artifactId from pom.xml will be used as the image name.
+* The artifactId from pom.xml will be used as the image name. This name will be used later when deploying the application.
 * The entry point of the docker image will start our application with the production profile.
 
 To build and upload the application, simply find your way to the workshop folder in a terminal and run:
