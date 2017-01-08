@@ -20,7 +20,6 @@ public class SuperHeroFactory {
     RestTemplate restTemplate;
 
     public SuperHero randomSuperHero() {
-
         String hero = superHeroes.get(new Random().nextInt(superHeroes.size() - 1));
         logger.info("Hero picked: " + hero);
         logger.info("Fetching super powers for hero");
@@ -32,6 +31,28 @@ public class SuperHeroFactory {
         return new SuperHero(hero,
                 galaxy.getBody(),
                 superPowerResponse.getBody().getSuperPowers());
+    }
+
+    public SuperHero specificSuperHero(final String name) {
+        boolean heroExist = heroExists(name);
+        if (!heroExist) {
+            throw new IllegalArgumentException("No such Hero!");
+        }
+
+        logger.info("Hero picked: " + name);
+        logger.info("Fetching super powers for hero");
+        ResponseEntity<SuperPowersDTO> superPowerResponse = restTemplate.getForEntity("http://superpower-service/superpowers/" + name, SuperPowersDTO.class);
+
+        logger.info("Fetching galaxy for hero");
+        ResponseEntity<Galaxy> galaxy = restTemplate.getForEntity("http://galaxy-service/galaxy/" + name, Galaxy.class);
+
+        return new SuperHero(name,
+                galaxy.getBody(),
+                superPowerResponse.getBody().getSuperPowers());
+    }
+
+    private boolean heroExists(final String name) {
+        return superHeroes.stream().anyMatch(n -> n.equalsIgnoreCase(name));
     }
 
     private final List<String> superHeroes = Arrays.asList("A-Bomb (HAS)",
@@ -122,6 +143,7 @@ public class SuperHeroFactory {
             "Barracuda",
             "Bart Rozum",
             "Bastion",
+            "Batman",
             "Batroc the Leaper",
             "Battering Ram",
             "Beak",
@@ -1211,6 +1233,7 @@ public class SuperHeroFactory {
             "Spider-Girl (Anya Corazon)",
             "Spider-Girl (May Parker)",
             "Spider-Ham (Larval Earth)",
+            "Spiderman",
             "Spider-Man",
             "Spider-Man (1602)",
             "Spider-Man (2099)",
@@ -1520,6 +1543,4 @@ public class SuperHeroFactory {
             "Zzzax",
             "3",
             "3-D Man");
-
-
 }
