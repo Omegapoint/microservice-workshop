@@ -30,7 +30,7 @@
         <java.version>1.8</java.version>
         <logback.version>1.1.6</logback.version>
         <master.ip>54.194.242.215</master.ip>
-        <master.dns>http://ec2-54-194-242-215.eu-west-1.compute.amazonaws.com:8761</master.dns>
+        <master.dns>ec2-54-194-242-215.eu-west-1.compute.amazonaws.com</master.dns>
     </properties>
 
     <build>
