@@ -45,7 +45,7 @@ Add the plugin to pom.xml
 A few things to note about the plugin configurations:
 * We're using java as a base image, which means that java will be installed within our docker image.
 * We're prefixing the image name with '${master.ip}:5000', which is the path to our docker registry server.
-* The artifactId from pom.xml will be used as the image name.
+* The artifactId from pom.xml will be used as the image name. This name will be used later when deploying the application.
 * The entry point of the docker image will start our application with the production profile.
 
 To build and upload the application, simply find your way to the workshop folder in a terminal and run:
@@ -106,43 +106,38 @@ It's time to ship your application to the cloud.
 Go to the url: http://[RANCHER_IP]:8080 to get to Rancher. Let's have a quick look around.
 
 ###Infrastructure 
-Here you can find all components setting up the infrastructure of the provisioning. Under hosts you will find all the servers available for deployment of applications. 
+Under the infrastructure tab you will find all components setting up the infrastructure of the provisioning. Under hosts you can see all the servers available for deployment of applications. 
 
 ###Stacks
-Under stacks you will find information about groups (stacks) of applications. For example, under infra-services are the services running that you previously communicated with in your application.
+Under the stacks tab you will find information about stacks (groups) of applications. For example, under infra-services are all the services running that you previously communicated with in your application.
  
 ###Let's deploy
-Go to Stacks - All and press "Add Stack". Fill in a proper name and description of your stack. 
-This name should indicate which kind of application you are running, as application with similar purpose preferably should end up in the same stack.
+Go to `Stacks -> All` and press `Add Stack`. Fill in a proper name and description of your stack. 
+This name should indicate which kind of application you are running. Application with similar purpose should preferably end up in the same stack.
 
 Click Create.
 
 Now let's add your service to the stack. Fill in the following:
 
     * Scale: Choose on how many machines your application should run. Pick a reasonable number. 
-    * Name: <artifactId> (Replace with the artifactIf used in your pom)
+    * Name: <artifactId> (Replace with the artifactId used in your pom)
     * Description: Description of your application
-    * Select image: 172.31.12.100:5000/<artifactId> (Replace with the artifactIf used in your pom). The ip indicates to rancher where the registry is located. 
+    * Select image: 172.31.12.100:5000/<artifactId> (Replace with the artifactId used in your pom). The ip indicates to rancher where the registry is located. 
     * Port map: [APPLICATION_PORT] -> [APPLICATION_POR]> (Replace with the port where your application is running)
      
 Click Create.
 
-Your application is now starting. Click on the application name to get more information. Have a look around. Try to find the logs of your java application from here.
+Your application is now being deployed to the cluster. Click on the application name to get more information. Have a look around. Try to find the logs of your java application from here.
 
-You can also find the public ip of any of the machines running your application to try and access it. Ask the teacher if you need help finding it. 
+You can also find the public ip of any of the machines running your application to access it. Ask the teacher if you need support. 
 
 ##Upgrading your application
 Make some changes to your application. Maybe add an endpoint that talks to one of your colleagues applications.
  
 Build and upload a new docker image as done previously.
 
-Go to your stack in Rancher and click the three dots to the far right of your application. Choose upgrade.
+Go back to your stack in Rancher and click the three dots to the far right of your application. Choose upgrade.
 
 Click Create.
 
-Your application will now be upgraded with your new docker image. 
- 
- 
- 
- 
- 
+Your application will now be upgraded with your new docker image. Verify that your changes are working. 
