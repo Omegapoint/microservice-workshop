@@ -1,16 +1,15 @@
 spring:
   application:
-    name: "galaxy-service"
+    name: @artifactId@
 
 server:
   port: 24703
 
-#Obs, using public ip won't work. Use DNS!
 eureka:
   client:
     enabled: true
     serviceUrl:
-      defaultZone: http://ec2-54-194-242-215.eu-west-1.compute.amazonaws.com:8761/eureka
+      defaultZone: @master.dns@/eureka
 
 logging:
   level:
