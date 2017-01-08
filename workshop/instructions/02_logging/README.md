@@ -43,18 +43,12 @@ In our use case, it is much simplier though. We will add an appender that will a
 </dependency>
 ```
 
-2. Due to an bug in the current Spring Boot version, this will conflict with the logback version. We need to downgrade it to 1.1.6. 
-In the `<properties>` section of the POM, add 
-```xml
-<logback.version>1.1.6</logback.version>
-```
-
-3. Create a new logback configuration, i.e. `src/resources/logback.xml`. There are multiple appenders to choose from, we will pick the TCP one. Add the content 
+2. Create a new logback configuration, i.e. `src/resources/logback.xml`. There are multiple appenders to choose from, we will pick the TCP one. Add the content 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <appender name="stash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-        <destination>127.0.0.1:5044</destination>
+        <destination>@master.ip@:5044</destination>
         <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
     </appender>
 
@@ -74,15 +68,15 @@ In the `<properties>` section of the POM, add
 ```
 Here, we have two appenders, one which outputs to console and one which sends to Logstash via TCP.
 
-4. Restart the application. Open a browser and visit an endpoint which performs logging. Verify that it was printed in the console.
+3. Restart the application. Open a browser and visit an endpoint which performs logging. Verify that it was printed in the console.
 
-5. Go to Kibana, link is given by your teacher. Go to the `Discover` page to view the incoming logs. You can filter based on application name by searching for
+4. Go to Kibana, link is given by your teacher. Go to the `Discover` page to view the incoming logs. You can filter based on application name by searching for
 ```text
 application: <APPLICATION_NAME>
 ```
 
 ## Improving log information
-We can now find our logs in ELK, however we are lacking some information. We want to know which application is send the logs, which endpoint was called and so on.
+We can now find our logs in ELK, however we are lacking some information. We want to know which application that sent the logs, which endpoint was called and so on.
 This can be done by adding filters to the filter chain.
 
 1. We want to add the filters to our configuration. Open `WorkshopApplication` and add the following to the configuration
