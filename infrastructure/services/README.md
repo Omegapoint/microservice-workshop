@@ -9,7 +9,6 @@ SuperHero service
 Running on port: 24701 
 Endpoint: /ping, /superhero
 
-
 SuperPower service
 ------------------
 Running on port: 24702
