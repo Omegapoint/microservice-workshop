@@ -130,7 +130,7 @@ RestTemplate restTemplate;
 
 @RequestMapping("pingpong")
 public String pingPong() {
-    ResponseEntity<String> result = restTemplate.getForEntity("http://ping-service/ping", String.class);
+    ResponseEntity<String> result = restTemplate.getForEntity("http://superhero-service/ping", String.class);
 
     return "Received from service: " + result.getBody();
 }
