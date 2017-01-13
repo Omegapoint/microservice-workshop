@@ -148,7 +148,12 @@ classified as Upgraded. This is due to the fact that Spring Boot requires some a
 6. In the Rancher UI, press the dots again. Select `Finish upgrade`
  
 # Extra
-Registering a slave
+
+## Deploying available stacks
+Rancher already has some preconfigured stacks. Try to provision a Wordpress instance and create a new blog entry.
+Note! You probably need to retrieve a secret key when setting up Wordpress. This is a perfect opportunity to use a remote Rancher console to your docker container. Click around and find where you can start a console on your container.
+
+## Registering a slave
 
 A cluster is only good if it has enough slaves. It seems like our system park does not have enough due to so many services. Let's provision some new!
 
