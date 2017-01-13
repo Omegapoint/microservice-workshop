@@ -176,7 +176,7 @@ ResponseEntity<SuperHeroResponse> result = restTemplate.getForEntity("http://sup
 **HINT** It might be useful to select some fields to look at in Kibana instead of everything. `application`, `message` and `X-B3-TraceId` might be suitable.
 
 ## Global exception handling
-The logging looks file and all, but that is only when we are manually logging. What about when the system crashes? When will the logs be sent then?
+The logging looks fine and all, but that is only when we are manually logging. What about when the system crashes? When will the logs be sent then?
 We can add this type of logging by creating an global exception handler. In Spring Boot, a simple way of doing this is creating a `ControllerAdvice`.
 
 1. Create a new class called `GlobalExceptionHandler`. Add the following content:
@@ -186,8 +186,7 @@ public class GlobalExceptionHandler {
 }
 ```
 
-2. In your application, throw an RuntimeException somewhere to trigger the global handler. Watch the console or in Kibana to see that the exception has been
-logged.
+2. In your application, throw an RuntimeException somewhere to trigger the global handler. Watch the console or in Kibana to see that the exception has been logged.
 
 # Background ELK
 ### Elasticsearch information
