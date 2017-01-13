@@ -153,6 +153,7 @@ Registering a slave
 A cluster is only good if it has enough slaves. It seems like our system park does not have enough due to so many services. Let's provision some new!
 
 It is simple to create a new AWS slave. Login in to AWS:
+
 1. Access the AWS Console
 
 2. Go to EC2 
