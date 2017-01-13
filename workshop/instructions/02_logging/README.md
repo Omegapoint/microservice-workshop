@@ -181,8 +181,17 @@ We can add this type of logging by creating an global exception handler. In Spri
 
 1. Create a new class called `GlobalExceptionHandler`. Add the following content:
 ```java
+@ControllerAdvice
 public class GlobalExceptionHandler {
-    // TODO: Add code!
+
+    private final static Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
+    @ExceptionHandler(Exception.class)
+    public void defaultErrorHandler(HttpServletRequest req, Exception e) throws Exception {
+        logger.error("Request: " + req.toString() + "Error: " + e.getLocalizedMessage());
+        throw e;
+    }
+
 }
 ```
 
