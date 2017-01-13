@@ -62,7 +62,7 @@ curl -X GET <MASTER_IP>:5000/v2/_catalog
 
 The ip to Docker Registry should be visible in the logs when the image was uploaded to registry, if you cannot find it ask your teacher.
 
-Now hold your horses, we will not deploy your application to the cluster just yet. We have some stuff to take care of first. 
+Your application is now packaged as a docker image, but we will not deploy your application to the cluster just yet. We have some stuff to take care of first. 
 
 ##Service Discovery within docker and AWS
 Using service discovery within docker containers will not work out of the box, because the application is going to register an internal docker ip to eureka which no other server can reach.
