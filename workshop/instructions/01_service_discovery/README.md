@@ -43,7 +43,7 @@ other can request for our service.
 </dependency>
 ```
 
-2. Add a maven dependency management for Eureka. In `pom.xml` between `<dependencies>` and `<build>` 
+2. Add a maven dependency management for Eureka. In `pom.xml` find `dependencyManagement` and add a new dependency:
 ```xml
 <dependencyManagement>
     <dependencies>
