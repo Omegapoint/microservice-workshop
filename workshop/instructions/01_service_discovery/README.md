@@ -109,7 +109,7 @@ We will now talk to other services with only knowing the service name.
 </dependency>
 ```
 
-2. Add an interceptor to RestTemplate, telling it to do name lookups with Ribbon. In WorkshopApplication, add inside the `ClientApplication` class
+2. Add an interceptor to RestTemplate, telling it to do name lookups with Ribbon. In WorkshopApplication, add inside the `WorkshopApplication` class
 ```java
 @Configuration
 public static class ApplicationConfig {
