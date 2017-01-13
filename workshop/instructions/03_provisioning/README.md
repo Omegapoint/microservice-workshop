@@ -121,7 +121,7 @@ Fill in the following:
 * Scale: Choose on how many machines your application should run. Pick one for now.
 * Name: <artifactId> (Replace with the artifactId used in your pom)
 * Description: Description of your application. Can contain whitespace.
-* Select image: 172.31.12.100:5000/<artifactId> (Replace with the artifactId used in your pom). The ip indicates to rancher where the registry is located. 
+* Select image: 172.31.12.100:5000/##artifactId### (Replace with the ###artifactId### used in your pom). The ip indicates to rancher where the registry is located. 
 * Port map: Replace both sides with the port where your application is running)
 Click Create.
 
@@ -152,13 +152,7 @@ Registring a slave
 
 A cluster is only good if it has enough slaves. It seems like our system park does not have enough due to so many services. Let's provision some new!
 
-This describes how to setup a generic slave. 
---------------------------------------------
-
-It is simple to create a new slave. Create a Ubuntu 14.04 new machine and run the `setup.sh`.
-
-This is the process of creating a slave on AWS. There is no need for ever SSH:ing to the machine or anything, only UI on web.
-
+It is simple to create a new AWS slave. Login in to AWS:
 1. Access the AWS Console
 2. Go to EC2 
 3. Go to correct region (Ireland)
