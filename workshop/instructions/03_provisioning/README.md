@@ -122,7 +122,7 @@ Fill in the following:
 * Name: <artifactId> (Replace with the artifactId used in your pom)
 * Description: Description of your application. Can contain whitespace.
 * Select image: 172.31.12.100:5000/<artifactId> (Replace with the artifactId used in your pom). The ip indicates to rancher where the registry is located. 
-* Port map: [APPLICATION_PORT] -> [APPLICATION_PORT]> (Replace with the port where your application is running)
+* Port map: Replace both sides with the port where your application is running)
 Click Create.
 
 4. Your application is now being deployed to the cluster. Click on the application name to get more information. 
