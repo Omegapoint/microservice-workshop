@@ -200,3 +200,5 @@ Only these tasks if you are ahead and are only waiting for the next step.
 Ribbon does some magic in the background when replacing a service name to an IP using Eureka. Ribbon does not performa lookup on each call, that would be too expensive.
 Instead, it stores a local cache of all available services. You can manually get all available services and inspect them yourself. Autowire in the `DiscoveryClient` and
 call `getApplication()`
+
+**Note!** We have not prepared this part. You might need to instantiate a DiscoveryClient bean.
